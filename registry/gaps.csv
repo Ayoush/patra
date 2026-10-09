@@ -1,0 +1,5 @@
+id,type,description,status
+ifsc-pincode-cross,feature,Cross-validate pincode against IFSC state code,missing
+locality-dict,data,Common locality misspelling dictionary,missing
+aadhaar-area-filter,policy,Reject inputs that include Aadhaar numbers,missing
+bulk-csv-pipeline,feature,Accept CSV batch input via CLI,missing
