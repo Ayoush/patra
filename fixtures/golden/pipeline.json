@@ -1,0 +1,18 @@
+[
+  {
+    "input": { "locality": "andheri west", "state": "MH", "pincode": "400053" },
+    "expected": { "locality": "Andheri West", "state": "Maharashtra", "pincode": "400053", "state_was_alias": true }
+  },
+  {
+    "input": { "locality": "Bandra", "state": "Maharashtra", "pincode": "400050" },
+    "expected": { "locality": "Bandra", "state": "Maharashtra", "pincode": "400050", "state_was_alias": false }
+  },
+  {
+    "input": { "locality": "  Koramangala  ", "state": "KA", "pincode": "560034" },
+    "expected": { "locality": "Koramangala", "state": "Karnataka", "pincode": "560034", "state_was_alias": true }
+  },
+  {
+    "input": { "locality": "Mussoorie", "state": "Uttaranchal", "pincode": "248179" },
+    "expected": { "locality": "Mussoorie", "state": "Uttarakhand", "pincode": "248179", "state_was_alias": true }
+  }
+]

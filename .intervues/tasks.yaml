@@ -1,0 +1,376 @@
+meta:
+  repo: Ayoush/patra
+  stack: Python 3.12, pytest, Typer, ruff
+  unit_of_work: One locality/alias row + test + registry update
+
+units_of_work:
+  - kind: alias_row
+    path: spec/aliases/
+    registry: registry/gaps.csv
+    implemented_states: [maharashtra, delhi, karnataka]
+    missing_states: [madhya-pradesh, rajasthan, gujarat, uttar-pradesh, tamil-nadu]
+
+tasks:
+  # ── BEGINNER TRACK ──────────────────────────────────────────
+
+  - id: docs-pipeline
+    title: "Document normalization order in docs/pipeline.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/pipeline.md
+    skill: technical writing
+    acceptance:
+      - Four pipeline steps named (trim, alias, pincode, casing)
+      - One worked example
+      - Link to pipeline.py
+
+  - id: docs-states
+    title: "State alias table intro in docs/states.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/states.md
+    skill: technical writing
+    acceptance:
+      - OR / Odisha example
+      - UK / Uttarakhand example
+      - Source of the alias table noted
+
+  - id: docs-privacy
+    title: "Privacy note in docs/privacy.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/privacy.md
+    skill: technical writing
+    acceptance:
+      - No personal names in fixtures
+      - Street-only samples policy
+      - Rejection rule stated
+
+  - id: docs-cli-readme
+    title: "CLI help text in README.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: README.md
+    skill: technical writing
+    acceptance:
+      - One command shown
+      - Sample stdin input
+      - Sample stdout output
+
+  - id: docs-contributing-row
+    title: "How a row becomes a test in CONTRIBUTING.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: CONTRIBUTING.md
+    skill: technical writing
+    acceptance:
+      - CSV column names explained
+      - pytest node id shown
+      - Registry status field explained
+
+  - id: test-bombay-alias
+    title: "'Bombay' maps to Maharashtra in tests/test_aliases.py"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: tests/test_aliases.py
+    skill: Python testing
+    acceptance:
+      - City alias applied
+      - State filled in
+      - Original raw value preserved
+
+  - id: test-pincode-extraction
+    title: "Pincode extracted from end-of-line in tests/test_pincode.py"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: tests/test_pincode.py
+    skill: regex testing
+    acceptance:
+      - 6-digit code captured
+      - 5-digit code ignored
+      - Two pincodes in one string fails closed
+
+  - id: test-whitespace-collapse
+    title: "Extra whitespace collapsed in tests/test_whitespace.py"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: tests/test_whitespace.py
+    skill: string normalization testing
+    acceptance:
+      - Newlines become spaces
+      - Double spaces collapse to single
+      - Empty input raises an error
+
+  - id: test-unknown-state
+    title: "Unknown state left unchanged in tests/test_unknown.py"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: tests/test_unknown.py
+    skill: defensive programming testing
+    acceptance:
+      - Token is preserved unchanged
+      - A warning code is set on the result
+      - No exception raised
+
+  - id: test-golden-round-trip
+    title: "Golden file round-trip in tests/test_golden.py"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: tests/test_golden.py
+    skill: golden-file testing
+    acceptance:
+      - Loader reads JSONL
+      - Output order is stable
+      - One deliberate mismatch fails the test
+
+  - id: feat-indore-aliases
+    title: "Add Indore locality aliases in spec/aliases/madhya-pradesh.csv"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: spec/aliases/madhya-pradesh.csv
+    skill: data contribution, CSV
+    acceptance:
+      - At least 8 rows
+      - Registry updated
+      - Golden file updated
+
+  - id: feat-patra-norm-cli
+    title: "Typer command 'patra norm' in src/patra/cli.py"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: src/patra/cli.py
+    skill: CLI development, Typer
+    acceptance:
+      - Reads from stdin
+      - Writes one JSON line to stdout
+      - Exits 2 on empty input
+
+  - id: feat-devanagari
+    title: "Devanagari state label 'मध्य प्रदेश' in spec/aliases/devanagari.csv"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: spec/aliases/devanagari.csv
+    skill: Unicode, Python
+    acceptance:
+      - Maps to Madhya Pradesh
+      - Latin row still works
+      - Test file is UTF-8 encoded
+
+  - id: feat-pin-prefix
+    title: "PIN prefix to region in src/patra/pin_prefix.py"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: src/patra/pin_prefix.py
+    skill: lookup tables, Python
+    acceptance:
+      - Prefix 45 maps toward MP region
+      - Unknown prefix returns None
+      - Table is data not code
+
+  - id: feat-jsonl-batch
+    title: "JSONL batch mode in src/patra/cli.py"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: src/patra/cli.py
+    skill: CLI, streaming JSON
+    acceptance:
+      - 10 lines in, 10 lines out
+      - Bad line reported with its index
+      - Output is valid JSONL
+
+  - id: bug-alias-case-sensitive
+    title: "Fix alias match case-sensitive in src/patra/alias.py"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: src/patra/alias.py
+    skill: string normalization, Python
+    acceptance:
+      - 'INDORE' matches same as 'Indore'
+      - Case-folding applied before lookup
+      - Golden file updated
+
+  - id: bug-pincode-mobile
+    title: "Fix pincode regex eating 10-digit mobile in src/patra/pincode.py"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: src/patra/pincode.py
+    skill: regex, Python
+    acceptance:
+      - 10-digit mobile not captured as PIN
+      - 6-digit code still captured
+      - Fixture added
+
+  - id: bug-csv-quoted-comma
+    title: "Fix CSV loader dropping quoted commas in src/patra/load.py"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: src/patra/load.py
+    skill: CSV parsing, Python
+    acceptance:
+      - Quoted locality with comma is preserved
+      - Comma inside quotes is not a delimiter
+      - Test fixture added
+
+  - id: bug-cli-unicode-windows
+    title: "Fix CLI Unicode crash on Windows in src/patra/cli.py"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: src/patra/cli.py
+    skill: encoding, cross-platform
+    acceptance:
+      - stdout forced to UTF-8
+      - Test uses a Devanagari row
+      - Docs note the flag
+
+  - id: bug-pin-prefix-46
+    title: "Fix region map missing prefix 46 in src/patra/pin_prefix.py"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: src/patra/pin_prefix.py
+    skill: data correction
+    acceptance:
+      - Prefix 46 classified
+      - Neighbor 45 unchanged
+      - Registry row closed
+
+  # ── ADVANCED TRACK ───────────────────────────────────────────
+
+  - id: adv-100-aliases
+    title: "Add 100 locality aliases across 5 states"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: spec/aliases/
+    skill: data contribution, Python
+    acceptance:
+      - 20+ rows per state
+      - Registry updated for all
+      - All tests pass
+
+  - id: adv-devanagari-full
+    title: "Full Devanagari locality alias table for 5 states"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: spec/aliases/devanagari.csv
+    skill: Unicode, Python, data
+    acceptance:
+      - All major cities in each state
+      - Latin fallback works
+      - Tests cover transliteration variations
+
+  - id: adv-pipeline-refactor
+    title: "Refactor pipeline.py to support pluggable steps"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: src/patra/pipeline.py
+    skill: Python architecture, design patterns
+    acceptance:
+      - Each step is a typed callable
+      - Steps composable via a list
+      - Existing tests unchanged
+
+  - id: adv-api-server
+    title: "Add a FastAPI server for the normalization pipeline"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: src/patra/
+    skill: FastAPI, HTTP API, Python
+    acceptance:
+      - POST /normalize
+      - 400 for empty input
+      - No network required for tests (mocked)
+
+  - id: adv-benchmarks
+    title: "Benchmark pipeline on 10,000 addresses"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: src/patra/pipeline.py
+    skill: performance, Python profiling
+    acceptance:
+      - Benchmark script in scripts/bench.py
+      - Results in docs/performance.md
+      - Runs in under 30 seconds
+
+  - id: adv-fuzzy-matching
+    title: "Add fuzzy alias matching with edit-distance threshold"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: src/patra/alias.py
+    skill: algorithms, fuzzy matching
+    acceptance:
+      - edit_distance param configurable
+      - Exact match preferred over fuzzy
+      - Fuzzy match flagged in result
+
+  - id: adv-transliteration
+    title: "Implement Devanagari-to-Latin transliteration without external libs"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: src/patra/
+    skill: Unicode, algorithms
+    acceptance:
+      - Table-driven, no network
+      - Covers common MP / UP city names
+      - Tests are UTF-8 fixtures
+
+  - id: adv-data-pipeline
+    title: "Build a data pipeline to import locality names from Postal Index Number data"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: scripts/
+    skill: data engineering, Python
+    acceptance:
+      - Script downloads and parses public PIN data
+      - Outputs CSV in spec/aliases/ format
+      - Only runs offline on cached data in CI
+
+  - id: adv-property-tests
+    title: "Property-style tests: normalize(normalize(x)) == normalize(x)"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: tests/
+    skill: property-based testing, hypothesis
+    acceptance:
+      - Uses hypothesis
+      - Covers whitespace variants
+      - Covers case variants of known aliases
+
+  - id: adv-docs-site
+    title: "Generate a static site from the alias catalog"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: spec/aliases/
+    skill: static site generation, mkdocs
+    acceptance:
+      - One page per state
+      - Table of aliases searchable
+      - Deployed to GitHub Pages
