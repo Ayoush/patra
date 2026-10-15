@@ -1,44 +1,27 @@
-# patra
+# Patra
 
 Patra is a project for offline normalization of Indian postal addresses,
 focusing on state aliases, pincode formatting, locality casing, and
 data-driven Devanagari-to-Latin locality labels.
 
-### What patra does NOT do
+### What Patra Does NOT Do
 
-- **Geocoding and Geotagging**
-  - Patra does not convert postal addresses into geographic coordinates
-    (latitude and longitude) or assign geographic tags to locations.
-  - These operations require geographic reference data or integration
-    with an external geocoding service, which may involve a paid API.
-  - Such integrations fall outside Patra's offline normalization scope.
+- **Geocoding and Geotagging:** Patra does not convert postal addresses
+  into geographic coordinates or assign location tags. These operations
+  require external geographic reference data or geocoding services.
 
-- **Postal Address Verification**
-  - Patra does not verify whether a postal address physically exists
-    or can successfully receive mail.
-  - Reliable address verification requires access to authoritative
-    postal databases or external verification services.
-  - Patra focuses on normalizing address data rather than confirming
-    real-world address validity.
+- **Postal Address Verification:** Patra does not verify whether an
+  address physically exists or can receive mail. Such verification
+  requires authoritative postal databases or external services.
 
-- **Aadhaar/PAN Processing**
-  - Patra does not extract, validate, or process Aadhaar numbers,
-    PAN numbers, or other government-issued identity identifiers.
-  - Processing such identifiers falls outside the scope of postal
-    address normalization and may involve sensitive personal information.
+- **Aadhaar/PAN Processing:** Patra does not extract, validate, or
+  process Aadhaar, PAN, or other government-issued identity identifiers.
+  These fall outside the scope of postal address normalization.
 
-- **English-to-Hindi Transliteration**
-  - Patra does not automatically convert English-script address text
-    into Hindi (Devanagari) script.
-  - This functionality requires additional transliteration rules,
-    language-processing tools, or dedicated language models.
-  - Patra's documented approach instead focuses on data-driven
-    Devanagari-to-Latin locality labels.
+- **English-to-Hindi Transliteration:** Patra does not convert English
+  address text into Devanagari script. Its functionality is limited to
+  data-driven Devanagari-to-Latin locality labels.
 
-- **Pincode-to-State Verification**
-  - Patra does not provide authoritative verification that a given
-    pincode belongs to a particular Indian state.
-  - Checking a pincode's format does not guarantee that the pincode
-    corresponds to the supplied state or locality.
-  - Such verification requires an accurate and regularly maintained
-    postal reference dataset.
+- **Pincode-to-State Verification:** Patra validates pincode formatting
+  but does not verify whether a pincode belongs to a specific state
+  or locality. This requires a reliable, up-to-date postal dataset.
