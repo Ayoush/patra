@@ -4,6 +4,9 @@ Patra is a project for offline normalization of Indian postal addresses,
 focusing on state aliases, pincode formatting, locality casing, and
 data-driven Devanagari-to-Latin locality labels.
 
+See [the privacy note](docs/privacy.md) for the data Patra processes and
+guidance on sensitive inputs.
+
 ### What Patra Does NOT Do
 
 - **Geocoding and Geotagging:** Patra does not convert postal addresses
