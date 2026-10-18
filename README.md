@@ -25,3 +25,6 @@ data-driven Devanagari-to-Latin locality labels.
 - **Pincode-to-State Verification:** Patra validates pincode formatting
   but does not verify whether a pincode belongs to a specific state
   or locality. This requires a reliable, up-to-date postal dataset.
+
+#### File Description
+- [State and UT aliases](docs/states.md): historical names and why they changed
