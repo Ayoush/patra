@@ -1,7 +1,10 @@
 """Tests for the full normalisation pipeline."""
+import re
+
 import pytest
-from patra.pipeline import normalise
+
 from patra.errors import PatraError
+from patra.pipeline import normalise
 
 
 def test_basic_normalisation():
@@ -29,6 +32,13 @@ def test_invalid_pincode_raises():
     assert exc_info.value.code == "INVALID_PINCODE"
 
 
+@pytest.mark.parametrize("bad_pincode", ["040001", "12345", "40005A"])
+def test_invalid_pincode_message_includes_value(bad_pincode):
+    expected = re.escape(f"[INVALID_PINCODE] '{bad_pincode}' is not a valid Indian pincode")
+    with pytest.raises(PatraError, match=expected):
+        normalise("Andheri", "MH", bad_pincode)
+
+
 def test_empty_locality_raises():
     with pytest.raises(PatraError) as exc_info:
         normalise("", "MH", "400001")
@@ -39,6 +49,20 @@ def test_empty_state_raises():
     with pytest.raises(PatraError) as exc_info:
         normalise("Bandra", "", "400050")
     assert exc_info.value.code == "EMPTY_FIELD"
+
+
+@pytest.mark.parametrize(
+    ("locality", "state", "pincode", "field"),
+    [
+        ("", "MH", "400001", "locality"),
+        ("Bandra", "", "400050", "state"),
+        ("Bandra", "MH", "", "pincode"),
+    ],
+)
+def test_empty_field_message_names_the_field(locality, state, pincode, field):
+    expected = re.escape(f"[EMPTY_FIELD] {field} must not be blank")
+    with pytest.raises(PatraError, match=expected):
+        normalise(locality, state, pincode)
 
 
 def test_historical_alias():
